@@ -1,18 +1,56 @@
 ﻿const signIn = async () => {
-    const userDetails = {
+    const userRegisterDetails = {
         userName: document.getElementById("userName").value,
         password: document.getElementById("password").value,
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
    
     };
-    const GetUserDetailsPost = await fetch('api/Users', {
+    const GetUserRegisterDetailsPost = await fetch('api/Users', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(userDetails)
+        body: JSON.stringify(userRegisterDetails)
     });
-    const userRegisterPost = await GetUserDetailsPost.json();
-    console.log('POST Data:', userRegisterPost);
+    const userRegisterPost = await GetUserRegisterDetailsPost.json();
+    console.log('update userRegisterPost');
 };
+
+const logIn = async () => {
+    const userLoginDetails = {
+        userName: document.getElementById("userNameLogin").value,
+        password: document.getElementById("passwordLogin").value,
+    };
+    const GetUserLoginDetailsPost = await fetch('api/Users/logIn', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userLoginDetails)
+
+    });
+    const userLoginPost = await GetUserLoginDetailsPost.json();
+    console.log('login user:', userLoginPost);
+    window.location.href = "UpdateUser.html"
+};
+
+const updateUser = async () => {
+    const userUpdateDetails = {
+        userName: document.getElementById("userNameUpdate").value,
+        password: document.getElementById("passwordUpdate").value,
+        firstName: document.getElementById("firstNameUpdate").value,
+        lastName: document.getElementById("lastNameUpdate").value,
+    };
+    const GetUserUpdateDetails = await fetch('api/Users', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userUpdateDetails)
+    });
+    const userUpdate = await GetUserUpdateDetails.json();
+    consol.log('update user data:', userUpdate)
+
+}
+

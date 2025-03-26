@@ -37,8 +37,8 @@ namespace HomeWork1.Controllers
         }
 
         //POST api/<Users>
-        [HttpPost]
-        public User PostLogin([FromBody] string userName, string password)
+        [HttpPost("logIn")]
+        public User PostLogin([FromBody] UserLogin userLogin)
         {
             string filePath = "./User.txt";
             using (StreamReader reader = System.IO.File.OpenText(filePath))
@@ -46,9 +46,11 @@ namespace HomeWork1.Controllers
                 string? currentUserInFile;
                 while ((currentUserInFile = reader.ReadLine()) != null)
                 {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userName == userName && user.password == password)
-                        return user;
+                    User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
+                    if (userLogin.userName == currentUser.userName && currentUser.password == userLogin.password)
+                    {
+                        return currentUser;
+                    }
                 }
             }
             return null;
@@ -57,7 +59,7 @@ namespace HomeWork1.Controllers
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]User updatedUser)
+        public void Put(int id, [FromBody] User updatedUser)
         {
             string filePath = "./User.txt";
             string textToReplace = string.Empty;
