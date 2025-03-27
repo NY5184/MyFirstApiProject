@@ -14,7 +14,7 @@
         body: JSON.stringify(userRegisterDetails)
     });
     const userRegisterPost = await GetUserRegisterDetailsPost.json();
-    console.log('update userRegisterPost');
+    console.log('update', userRegisterPost);
 };
 
 const logIn = async () => {
@@ -32,6 +32,7 @@ const logIn = async () => {
     });
     const userLoginPost = await GetUserLoginDetailsPost.json();
     console.log('login user:', userLoginPost);
+    localStorage.setItem("CurrentLoginUser", JSON.stringify(userLoginPost));
     window.location.href = "UpdateUser.html"
 };
 
@@ -42,7 +43,8 @@ const updateUser = async () => {
         firstName: document.getElementById("firstNameUpdate").value,
         lastName: document.getElementById("lastNameUpdate").value,
     };
-    const GetUserUpdateDetails = await fetch('api/Users', {
+    const userid =JSON.parse( localStorage.getItem("CurrentLoginUser")).userId;
+    const GetUserUpdateDetails = await fetch(`api/Users/${userid}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -50,7 +52,7 @@ const updateUser = async () => {
         body: JSON.stringify(userUpdateDetails)
     });
     const userUpdate = await GetUserUpdateDetails.json();
-    consol.log('update user data:', userUpdate)
+    console.log('update user data:', userUpdate)
 
 }
 

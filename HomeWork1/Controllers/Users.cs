@@ -49,6 +49,7 @@ namespace HomeWork1.Controllers
                     User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (userLogin.userName == currentUser.userName && currentUser.password == userLogin.password)
                     {
+                       
                         return currentUser;
                     }
                 }
