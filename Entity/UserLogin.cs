@@ -1,4 +1,4 @@
-﻿namespace HomeWork1
+﻿namespace Entity
 {
     public class UserLogin
     {
