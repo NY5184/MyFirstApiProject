@@ -6,10 +6,37 @@ namespace IceCreamStoreService
 {
     public class IceCreamStoreServiceUser
     {
-        public IceCreamStoreReposteryUser Repostery { get; set; }
-        public List<User> getUsers()
+        public IceCreamStoreReposteryUser repostery;
+
+
+        public User addUserRegister(User newUser)
         {
-           return Repostery.getUsers();
+            return repostery.addUserRegister(newUser);
         }
+
+        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
+        {
+            
+            User theLoggedInUser = repostery.getUserByUserNameAndPasswordLogin(userLogin);
+            if (theLoggedInUser == null)
+            {
+                throw new KeyNotFoundException("User not found with the provided username and password.");
+            }
+
+           
+            return theLoggedInUser;
+
+        }
+
+        public User UpdateUser(User updatedUser)
+        {
+            User theUpdatedUser=repostery.UpdateUser(updatedUser);
+            if(theUpdatedUser==null)
+            {
+                throw new KeyNotFoundException("you are not logged in");
+            }
+            return theUpdatedUser;
+        }
+
     }
 }

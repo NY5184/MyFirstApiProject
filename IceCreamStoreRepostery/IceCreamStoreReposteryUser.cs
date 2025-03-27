@@ -60,8 +60,9 @@ namespace IceCreamStoreRepostery
                 string text = System.IO.File.ReadAllText(filePath);
                 text = text.Replace(textToReplace, JsonSerializer.Serialize(updatedUser));
                 System.IO.File.WriteAllText(filePath, text);
+                return updatedUser;
             }
-            return updatedUser;
+            return null;
         }
 
             
