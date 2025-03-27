@@ -14,7 +14,7 @@
         body: JSON.stringify(userRegisterDetails)
     });
     const userRegisterPost = await GetUserRegisterDetailsPost.json();
-    console.log('update', userRegisterPost);
+    console.log('register', userRegisterPost);
 };
 
 const logIn = async () => {

@@ -6,7 +6,7 @@ namespace IceCreamStoreService
 {
     public class IceCreamStoreServiceUser
     {
-        public IceCreamStoreReposteryUser repostery;
+        IceCreamStoreReposteryUser repostery = new IceCreamStoreReposteryUser();
 
 
         public User addUserRegister(User newUser)

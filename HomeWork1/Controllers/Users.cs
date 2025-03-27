@@ -12,7 +12,7 @@ namespace HomeWork1.Controllers
     [ApiController]
     public class Users : ControllerBase
     {
-        public IceCreamStoreServiceUser service;
+        IceCreamStoreServiceUser service = new IceCreamStoreServiceUser();
         // GET: api/<Users>
         [HttpGet]
         public IEnumerable<string> Get()
