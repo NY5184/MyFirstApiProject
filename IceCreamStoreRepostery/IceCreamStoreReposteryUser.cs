@@ -39,7 +39,7 @@ namespace IceCreamStoreRepostery
         }
 
     
-     public User UpdateUser(User updatedUser)
+     public User UpdateUser(int id,User updatedUser)
         {
             string filePath = "./User.txt";
             string textToReplace = string.Empty;
@@ -50,7 +50,7 @@ namespace IceCreamStoreRepostery
                 {
 
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == updatedUser.userId)
+                    if (user.userId == id)
                         textToReplace = currentUserInFile;
                 }
             }

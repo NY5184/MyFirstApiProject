@@ -28,9 +28,9 @@ namespace IceCreamStoreService
 
         }
 
-        public User UpdateUser(User updatedUser)
+        public User UpdateUser(int id,User updatedUser)
         {
-            User theUpdatedUser=repostery.UpdateUser(updatedUser);
+            User theUpdatedUser=repostery.UpdateUser(id,updatedUser);
             if(theUpdatedUser==null)
             {
                 throw new KeyNotFoundException("you are not logged in");

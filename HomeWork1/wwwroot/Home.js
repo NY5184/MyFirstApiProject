@@ -6,7 +6,7 @@
         lastName: document.getElementById("lastName").value,
    
     };
-    const GetUserRegisterDetailsPost = await fetch('api/Users', {
+    const GetUserRegisterDetailsPost = await fetch('api/Users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

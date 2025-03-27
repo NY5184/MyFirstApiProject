@@ -1,97 +1,8 @@
-﻿//using Microsoft.AspNetCore.Mvc;
-//using System.Text.Json;
-
-//// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-//namespace HomeWork1.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class Users : ControllerBase
-//    {
-//        // GET: api/<Users>
-//        [HttpGet]
-//        public IEnumerable<string> Get()
-//        {
-//            return new string[] { "value1", "value2" };
-//        }
-
-//        // GET api/<Users>/5
-//        [HttpGet("{id}")]
-//        public string Get(int id)
-//        {
-//            return "value";
-//        }
-
-//        // POST api/<Users>
-//        [HttpPost]
-//        //public CreatedAtActionResult PostRegister([FromBody] User newUser)
-//        //{
-//        //    string filePath = "./User.txt";
-//        //    int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-//        //    newUser.userId = numberOfUsers + 1;
-//        //    string userJson = JsonSerializer.Serialize(newUser);
-//        //    System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-//        //    return CreatedAtAction(nameof(Get), new { id = newUser.userId }, newUser);
-
-//        //}
-
-//        //POST api/<Users>
-//        //[HttpPost("logIn")]
-//        //public User PostLogin([FromBody] UserLogin userLogin)
-//        //{
-//        //    {
-//        //        string currentUser = System.IO.File.ReadAllLines("User.txt");
-//        //        foreach (string line in currentUser)
-//        //        {
-//        //            string currentUserInFile = JsonSerializer.Deserialize<User>(line);
-//        //            if (existingUser.Name == name && existingUser.Password == password)
-//        //            {
-//        //                return existingUser;
-//        //            }
-//        //        }
-//        //        return null;
-//        //    }
-
-//            //PUT api/<Users>
-//            [HttpPut("{id}")]
-//        //public void Put(int id, [FromBody] User updatedUser)
-//        //{
-//        //    string filePath = "./User.txt";
-//        //    string textToReplace = string.Empty;
-//        //    using (StreamReader reader = System.IO.File.OpenText(filePath))
-//        //    {
-//        //        string currentUserInFile;
-//        //        while ((currentUserInFile = reader.ReadLine()) != null)
-//        //        {
-
-//        //            User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-//        //            if (user.userId == id)
-//        //                textToReplace = currentUserInFile;
-//        //        }
-//        //    }
-
-//        //    if (textToReplace != string.Empty)
-//        //    {
-//        //        string text = System.IO.File.ReadAllText(filePath);
-//        //        text = text.Replace(textToReplace, JsonSerializer.Serialize(updatedUser));
-//        //        System.IO.File.WriteAllText(filePath, text);
-//        //    }
-
-//        //}
-
-
-
-
-//        // DELETE api/<Users>/5
-//        [HttpDelete("{id}")]
-//        public void Delete(int id)
-//        {
-//        }
-//    }
-//}
+﻿
+using Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using IceCreamStoreService;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -101,6 +12,7 @@ namespace HomeWork1.Controllers
     [ApiController]
     public class Users : ControllerBase
     {
+        public IceCreamStoreServiceUser service;
         // GET: api/<Users>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -116,64 +28,27 @@ namespace HomeWork1.Controllers
         }
 
         // POST api/<Users>
-        [HttpPost]
-        public CreatedAtActionResult PostRegister([FromBody] User newUser)
+        [HttpPost("register")]
+        public User  addUserRegister([FromBody] User newUser)
         {
-            string filePath = "./User.txt";
-            int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            newUser.userId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(newUser);
-            System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-            return CreatedAtAction(nameof(Get), new { id = newUser.userId }, newUser);
+           return service.addUserRegister(newUser);
 
         }
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public User PostLogin([FromBody] UserLogin userLogin)
+        public User getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
         {
-            string filePath = "./User.txt";
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User currentUser = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (userLogin.userName == currentUser.userName && currentUser.password == userLogin.password)
-                    {
-
-                        return currentUser;
-                    }
-                }
-            }
-            return null;
+            return service.getUserByUserNameAndPasswordLogin(userLogin);
 
         }
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User updatedUser)
+        public User UpdateUser(int id, [FromBody] User updatedUser)
         {
-            string filePath = "./User.txt";
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
 
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.userId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(updatedUser));
-                System.IO.File.WriteAllText(filePath, text);
-            }
+            return service.UpdateUser(id,updatedUser);
 
         }
 
