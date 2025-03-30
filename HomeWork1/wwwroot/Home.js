@@ -6,15 +6,15 @@
         lastName: document.getElementById("lastName").value,
    
     };
-    const GetUserRegisterDetailsPost = await fetch('api/Users/register', {
+    const addUserRegister = await fetch('api/Users/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(userRegisterDetails)
     });
-    const userRegisterPost = await GetUserRegisterDetailsPost.json();
-    console.log('register', userRegisterPost);
+    const TheSignedInUser = await addUserRegister.json();
+    console.log('register', TheSignedInUser);
 };
 
 const logIn = async () => {
@@ -22,7 +22,7 @@ const logIn = async () => {
         userName: document.getElementById("userNameLogin").value,
         password: document.getElementById("passwordLogin").value,
     };
-    const GetUserLoginDetailsPost = await fetch('api/Users/logIn', {
+    const getUserByUserNameAndPasswordLogin = await fetch('api/Users/logIn', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -30,9 +30,9 @@ const logIn = async () => {
         body: JSON.stringify(userLoginDetails)
 
     });
-    const userLoginPost = await GetUserLoginDetailsPost.json();
-    console.log('login user:', userLoginPost);
-    localStorage.setItem("CurrentLoginUser", JSON.stringify(userLoginPost));
+    const TheLoggedInUser = await getUserByUserNameAndPasswordLogin.json();
+    console.log('login user:', TheLoggedInUser);
+    localStorage.setItem("CurrentLoginUser", JSON.stringify(TheLoggedInUser));
     window.location.href = "UpdateUser.html"
 };
 
@@ -44,15 +44,15 @@ const updateUser = async () => {
         lastName: document.getElementById("lastNameUpdate").value,
     };
     const userid =JSON.parse( localStorage.getItem("CurrentLoginUser")).userId;
-    const GetUserUpdateDetails = await fetch(`api/Users/${userid}`, {
+    const UpdateUser = await fetch(`api/Users/${userid}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(userUpdateDetails)
     });
-    const userUpdate = await GetUserUpdateDetails.json();
-    console.log('update user data:', userUpdate)
+    const TheUpdatedUser = await UpdateUser.json();
+    console.log('update user data:', TheUpdatedUser)
 
 }
 
