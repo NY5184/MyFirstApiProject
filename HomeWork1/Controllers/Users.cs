@@ -29,26 +29,53 @@ namespace HomeWork1.Controllers
 
         // POST api/<Users>
         [HttpPost("register")]
-        public User  addUserRegister([FromBody] User newUser)
+        public IActionResult addUserRegister([FromBody] User newUser)
         {
-           return service.addUserRegister(newUser);
+           try
+            {
+                User user = service.addUserRegister(newUser);
+                return Ok(user);
+            }
+            catch(ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public User getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
+        public IActionResult getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
         {
-            return service.getUserByUserNameAndPasswordLogin(userLogin);
-
+            try
+            {
+               User user= service.getUserByUserNameAndPasswordLogin(userLogin);
+                return Ok(user);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public User UpdateUser(int id, [FromBody] User updatedUser)
+        public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
         {
+            try
+            {
+                User user = service.UpdateUser(id, updatedUser); ;
+                return Ok(user);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            return service.UpdateUser(id,updatedUser);
 
         }
 
