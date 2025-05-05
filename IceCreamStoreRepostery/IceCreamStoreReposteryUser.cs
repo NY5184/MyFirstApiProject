@@ -3,9 +3,10 @@ using System.Reflection.Metadata;
 using System.Text.Json;
 
 
+
 namespace IceCreamStoreRepostery
 {
-    public class IceCreamStoreReposteryUser
+    public class IceCreamStoreReposteryUser: IIceCreamStoreReposteryUser
     {
 
 

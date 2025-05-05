@@ -4,9 +4,9 @@ using Zxcvbn;
 
 namespace IceCreamStoreService
 {
-    public class IceCreamStoreServiceUser
+    public class IceCreamStoreServiceUser: IIceCreamStoreService
     {
-        IceCreamStoreReposteryUser repostery = new IceCreamStoreReposteryUser();
+        IIceCreamStoreReposteryUser repostery;
 
 
         public User addUserRegister(User newUser)
@@ -58,5 +58,34 @@ namespace IceCreamStoreService
             return theUpdatedUser;
         }
 
+        public User addUserRegister(User newUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User UpdateUser(int id, User updatedUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User addUserRegister(User newUser)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User UpdateUser(int id, User updatedUser)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
