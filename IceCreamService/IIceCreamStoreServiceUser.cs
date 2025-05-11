@@ -4,7 +4,7 @@ using IceCreamStoreRepostery;
 using Zxcvbn;
 namespace IceCreamStoreService
 {
-    public interface IIceCreamStoreService
+    public interface IIceCreamStoreServiceUser
     {
         User addUserRegister(User newUser);
         bool validPassword(string password);

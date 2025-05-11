@@ -12,7 +12,11 @@ namespace HomeWork1.Controllers
     [ApiController]
     public class Users : ControllerBase
     {
-        IIceCreamStoreService service ;
+        IIceCreamStoreServiceUser _service;
+        public Users(IIceCreamStoreServiceUser service)
+        {
+            _service = service;
+        }
         // GET: api/<Users>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -33,7 +37,7 @@ namespace HomeWork1.Controllers
         {
            try
             {
-                User user = service.addUserRegister(newUser);
+                User user = _service.addUserRegister(newUser);
                 return Ok(user);
             }
             catch(ArgumentException ex)
@@ -49,7 +53,7 @@ namespace HomeWork1.Controllers
         {
             try
             {
-               User user= service.getUserByUserNameAndPasswordLogin(userLogin);
+               User user= _service.getUserByUserNameAndPasswordLogin(userLogin);
                 return Ok(user);
             }
             catch(KeyNotFoundException ex)
@@ -64,7 +68,7 @@ namespace HomeWork1.Controllers
         {
             try
             {
-                User user = service.UpdateUser(id, updatedUser); ;
+                User user = _service.UpdateUser(id, updatedUser); ;
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

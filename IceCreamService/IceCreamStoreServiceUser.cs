@@ -4,10 +4,13 @@ using Zxcvbn;
 
 namespace IceCreamStoreService
 {
-    public class IceCreamStoreServiceUser: IIceCreamStoreService
+    public class IceCreamStoreServiceUser: IIceCreamStoreServiceUser
     {
-        IIceCreamStoreReposteryUser repostery;
-
+        IIceCreamStoreReposteryUser _repostery;
+        public IceCreamStoreServiceUser(IIceCreamStoreReposteryUser repostery)
+        {
+            _repostery=repostery;
+        }
 
         public User addUserRegister(User newUser)
         {
@@ -15,7 +18,7 @@ namespace IceCreamStoreService
             {
                 throw new ArgumentException("you nead to enter a good password");
             }
-            return repostery.addUserRegister(newUser);
+            return _repostery.addUserRegister(newUser);
 
         }
 
@@ -33,7 +36,7 @@ namespace IceCreamStoreService
         public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
         {
             
-            User theLoggedInUser = repostery.getUserByUserNameAndPasswordLogin(userLogin);
+            User theLoggedInUser = _repostery.getUserByUserNameAndPasswordLogin(userLogin);
             if (theLoggedInUser == null)
             {
                 throw new KeyNotFoundException("User not found with the provided username and password.");
@@ -50,7 +53,7 @@ namespace IceCreamStoreService
             {
                 throw new ArgumentException("you nead to enter a good password");
             }
-            User theUpdatedUser=repostery.UpdateUser(id,updatedUser);
+            User theUpdatedUser= _repostery.UpdateUser(id,updatedUser);
             if(theUpdatedUser==null)
             {
                 throw new KeyNotFoundException("you are not logged in");
@@ -58,34 +61,5 @@ namespace IceCreamStoreService
             return theUpdatedUser;
         }
 
-        public User addUserRegister(User newUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User UpdateUser(int id, User updatedUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User addUserRegister(User newUser)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User UpdateUser(int id, User updatedUser)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
