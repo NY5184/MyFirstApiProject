@@ -1,6 +1,8 @@
 ﻿using Entity;
 using IceCreamStoreRepostery;
 using Zxcvbn;
+using System.Linq;
+
 
 namespace IceCreamStoreService
 {
@@ -12,13 +14,15 @@ namespace IceCreamStoreService
             _repostery=repostery;
         }
 
-        public User addUserRegister(User newUser)
+       
+
+        public async Task<User> addUserRegister(User newUser)
         {
-            if(!validPassword(newUser.password))
+            if(!validPassword(newUser.Password))
             {
                 throw new ArgumentException("you nead to enter a good password");
             }
-            return _repostery.addUserRegister(newUser);
+            return  await _repostery.addUserRegister(newUser);
 
         }
 
@@ -33,10 +37,10 @@ namespace IceCreamStoreService
 
         }
 
-        public User getUserByUserNameAndPasswordLogin(UserLogin userLogin)
+        public async Task<User> getUserByUserNameAndPasswordLogin(UserLogin userLogin)
         {
             
-            User theLoggedInUser = _repostery.getUserByUserNameAndPasswordLogin(userLogin);
+            User theLoggedInUser = await _repostery.getUserByUserNameAndPasswordLogin(userLogin);
             if (theLoggedInUser == null)
             {
                 throw new KeyNotFoundException("User not found with the provided username and password.");
@@ -47,13 +51,13 @@ namespace IceCreamStoreService
 
         }
 
-        public User UpdateUser(int id,User updatedUser)
+        public async Task<User >UpdateUser(short id,User updatedUser)
         {
-            if (!validPassword(updatedUser.password))
+            if (!validPassword(updatedUser.Password))
             {
                 throw new ArgumentException("you nead to enter a good password");
             }
-            User theUpdatedUser= _repostery.UpdateUser(id,updatedUser);
+            User theUpdatedUser= await _repostery.UpdateUser(id, updatedUser);
             if(theUpdatedUser==null)
             {
                 throw new KeyNotFoundException("you are not logged in");
@@ -61,5 +65,6 @@ namespace IceCreamStoreService
             return theUpdatedUser;
         }
 
+  
     }
 }

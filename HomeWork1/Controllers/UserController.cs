@@ -3,6 +3,7 @@ using Entity;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using IceCreamStoreService;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,10 +11,10 @@ namespace HomeWork1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Users : ControllerBase
+    public class UserController : ControllerBase
     {
         IIceCreamStoreServiceUser _service;
-        public Users(IIceCreamStoreServiceUser service)
+        public UserController(IIceCreamStoreServiceUser service)
         {
             _service = service;
         }
@@ -33,14 +34,14 @@ namespace HomeWork1.Controllers
 
         // POST api/<Users>
         [HttpPost("register")]
-        public IActionResult addUserRegister([FromBody] User newUser)
+        public async Task<ActionResult<User>> addUserRegisterAsync([FromBody] User newUser)
         {
-           try
+            try
             {
-                User user = _service.addUserRegister(newUser);
+                User user = await _service.addUserRegister(newUser);
                 return Ok(user);
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -49,14 +50,14 @@ namespace HomeWork1.Controllers
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public IActionResult getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
+        public async Task<ActionResult<User>> getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
         {
             try
             {
-               User user= _service.getUserByUserNameAndPasswordLogin(userLogin);
+                User user = await _service.getUserByUserNameAndPasswordLogin(userLogin);
                 return Ok(user);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -64,11 +65,16 @@ namespace HomeWork1.Controllers
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
+        public async Task<ActionResult<User>> UpdateUserAsync(short id, [FromBody] User updatedUser)
         {
             try
             {
-                User user = _service.UpdateUser(id, updatedUser); ;
+                if (id > short.MaxValue || id < short.MinValue)
+                    return BadRequest("Id is out of range for short.");
+
+                short shortId = (short)id;
+                User user = await _service.UpdateUser(shortId, updatedUser);
+
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)

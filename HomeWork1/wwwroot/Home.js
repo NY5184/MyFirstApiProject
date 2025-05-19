@@ -1,12 +1,25 @@
 ﻿const signIn = async () => {
+    //const userRegisterDetails = {
+    //    userName: document.querySelector("userName").value,
+    //    password: document.querySelector("password").value,
+    //    firstName: document.querySelector("firstName").value,
+    //    lastName: document.querySelector("lastName").value,
+    //     LastName = document.querySelector("lastName").value;
+
+
+    //};
+
+    const userName= document.querySelector("#userName").value
+     const  password=document.querySelector("#password").value
+         const   firstName=document.querySelector("#firstName").value
+    const lastName = document.querySelector("#lastName").value
     const userRegisterDetails = {
-        userName: document.getElementById("userName").value,
-        password: document.getElementById("password").value,
-        firstName: document.getElementById("firstName").value,
-        lastName: document.getElementById("lastName").value,
-   
-    };
-    const addUserRegister = await fetch('api/Users/register', {
+        userName, password, firstName, lastName
+        }
+    console.log("hereeee2222", userName)
+    console.log(userRegisterDetails);
+
+    const addUserRegister = await fetch('api/User/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,33 +31,69 @@
 };
 
 const logIn = async () => {
+    const userName = document.querySelector("#userNameLogin").value;
+    const password = document.querySelector("#passwordLogin").value;
+    if (!userName || !password) {
+        alert("username and password are required");
+    }
     const userLoginDetails = {
-        userName: document.getElementById("userNameLogin").value,
-        password: document.getElementById("passwordLogin").value,
+        userName,
+        password
     };
-    const getUserByUserNameAndPasswordLogin = await fetch('api/Users/logIn', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userLoginDetails)
+    
+        const getUserByUserNameAndPasswordLogin = await fetch('api/User/logIn', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userLoginDetails)
 
-    });
-    const TheLoggedInUser = await getUserByUserNameAndPasswordLogin.json();
-    console.log('login user:', TheLoggedInUser);
+        });
+
+    if (!getUserByUserNameAndPasswordLogin.ok) {
+        const errorMessage = await getUserByUserNameAndPasswordLogin.text();
+  
+        alert("Login failed: " + errorMessage);
+        return;
+    }
+    if (getUserByUserNameAndPasswordLogin.status === 404) {
+        alert("User not found or incorrect password");
+        return;
+    }
+
+        const TheLoggedInUser = await getUserByUserNameAndPasswordLogin.json();
+        console.log('login user:', TheLoggedInUser);
     localStorage.setItem("CurrentLoginUser", JSON.stringify(TheLoggedInUser));
-    window.location.href = "UpdateUser.html"
-};
+    console.log("Saved user to localStorage:", TheLoggedInUser);
+
+        window.location.href = "UpdateUser.html"
+        console.log("CurrentLoginUser");
+        console.log(JSON.parse(localStorage.getItem("CurrentLoginUser")))
+    };
 
 const updateUser = async () => {
+    console.log("CurrentLoginUser");
+    
     const userUpdateDetails = {
-        userName: document.getElementById("userNameUpdate").value,
-        password: document.getElementById("passwordUpdate").value,
-        firstName: document.getElementById("firstNameUpdate").value,
-        lastName: document.getElementById("lastNameUpdate").value,
+
+        userName: document.querySelector("#userNameUpdate").value,
+        password: document.querySelector("#passwordUpdate").value,
+        firstName: document.querySelector("#firstNameUpdate").value,
+        lastName: document.querySelector("#lastNameUpdate").value,
     };
-    const userid =JSON.parse( localStorage.getItem("CurrentLoginUser")).userId;
-    const UpdateUser = await fetch(`api/Users/${userid}`, {
+  
+    const currentUser = JSON.parse(localStorage.getItem("CurrentLoginUser"));
+    if (!currentUser) {
+        alert("User is not logged in.");
+        return;
+    }
+    const userid = currentUser.id;
+
+
+    console.log("userid");
+    console.log(userid);
+   
+    const UpdateUser = await fetch(`api/User/${userid}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

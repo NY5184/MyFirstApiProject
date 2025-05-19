@@ -9,11 +9,11 @@ namespace IceCreamStoreRepostery
     {
 
 
-         User addUserRegister(User newUser);
+        Task<User> addUserRegister(User newUser);
 
-         User getUserByUserNameAndPasswordLogin(UserLogin userLogin);
+        Task<User> getUserByUserNameAndPasswordLogin(UserLogin userLogin);
 
-         User UpdateUser(int id, User updatedUser);
+        Task<User> UpdateUser(short id, User updatedUser);
 
 
 
