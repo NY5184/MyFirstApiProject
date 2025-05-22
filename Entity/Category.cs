@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
+
 namespace Entity;
 
 public partial class Category
@@ -17,5 +20,6 @@ public partial class Category
     public string CategoryName { get; set; }
 
     [InverseProperty("Category")]
+    [JsonIgnore] // כדי למנוע לולאה עם Product
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

@@ -2,13 +2,17 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using Entity;
 using Microsoft.EntityFrameworkCore;
+using Entity;
 
 namespace IceCreamStoreRepostery;
 
 public partial class WebApiContext : DbContext
 {
+    public WebApiContext()
+    {
+    }
+
     public WebApiContext(DbContextOptions<WebApiContext> options)
         : base(options)
     {
@@ -16,17 +20,44 @@ public partial class WebApiContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<Order> Orders { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
+
+    public virtual DbSet<TheOrderItem> TheOrderItems { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=LAPTOP-MOJ9OFNQ;Initial Catalog=WebApi;Integrated Security=True;TrustServerCertificate=True");
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PK_Table_1");
+
+            entity.HasOne(d => d.User).WithMany(p => p.Orders).HasConstraintName("FK_Orders_Users");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Products_Categories");
+        });
+
+        modelBuilder.Entity<TheOrderItem>(entity =>
+        {
+            entity.HasOne(d => d.Order).WithMany(p => p.TheOrderItems)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_THE_ORDER_ITEM_Orders");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.TheOrderItems)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_THE_ORDER_ITEM_Products");
         });
 
         OnModelCreatingPartial(modelBuilder);

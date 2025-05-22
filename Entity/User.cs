@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+
 namespace Entity;
 
 public partial class User
 {
-
     [Key]
     [Column("ID")]
-    public short id { get; set; }
+    public short Id { get; set; }
 
     [Column("userName")]
     [StringLength(50)]
@@ -29,4 +30,8 @@ public partial class User
     [Column("lastName")]
     [StringLength(50)]
     public string LastName { get; set; }
+
+    [InverseProperty("User")]
+    [JsonIgnore]
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
