@@ -93,7 +93,8 @@ namespace IceCreamStoreRepostery
 
         public async Task<User> UpdateUser(short id, User updatedUser)
         {
-            var userToUpdate = await _WebApiContext.Users.FindAsync(id);
+            var userToUpdate = await _WebApiContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+
             if (userToUpdate == null)
             {
                 return null;
@@ -105,7 +106,7 @@ namespace IceCreamStoreRepostery
 
 
             await _WebApiContext.SaveChangesAsync();
-            return updatedUser;
+            return userToUpdate;
 
         }
 
