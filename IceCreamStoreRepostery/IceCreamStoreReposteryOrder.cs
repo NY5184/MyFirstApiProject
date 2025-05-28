@@ -22,7 +22,7 @@ namespace IceCreamStoreRepostery
             order.OrderDate = DateTime.Now;
         
             _WebApiContext.Orders.Add(order); // Add זה סינכרוני
-            await _WebApiContext.SaveChangesAsync(); // פה מחכים לסיום השמירה
+            var addedOrder=await _WebApiContext.SaveChangesAsync(); // פה מחכים לסיום השמירה
             return order;
         }
 
