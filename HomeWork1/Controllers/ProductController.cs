@@ -1,4 +1,4 @@
-﻿using Entity;
+﻿using DTO;
 using IceCreamStoreService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +18,7 @@ namespace HomeWork1.Controllers
         }
         // GET: api/<ProductController>
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllProductsAsync()
+        public async Task<ActionResult<List<ProductDTO>>> GetAllProductsAsync()
         {
             try
             {
@@ -33,28 +33,28 @@ namespace HomeWork1.Controllers
         }
 
         // GET api/<ProductController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // POST api/<ProductController>
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST api/<ProductController>
+        //[HttpPost]
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// PUT api/<ProductController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/<ProductController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<ProductController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

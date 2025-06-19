@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\IceCreamService\IceCreamStoreService.csproj" />
     <ProjectReference Include="..\IceCreamStoreRepostery\IceCreamStoreRepostery.csproj" />
   </ItemGroup>
 

@@ -1,9 +1,10 @@
 ﻿using Entity;
+using DTO;
 
 namespace IceCreamStoreService
 {
     public interface IIceCreamStoreServiceCategory
     {
-        Task<List<Category>> GetCategoriesAsync();
+        Task<List<CategoryDTO>> GetCategoriesAsync();
     }
 }

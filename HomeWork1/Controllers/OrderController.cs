@@ -1,4 +1,4 @@
-﻿using Entity;
+﻿using DTO;
 using IceCreamStoreService;
 using Microsoft.AspNetCore.Mvc;
 using IceCreamStoreService;
@@ -18,26 +18,19 @@ namespace HomeWork1.Controllers
             _service = service;
         }
         // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+     
+      
 
         // GET api/<OrderController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+      
 
         // POST api/<OrderController>
         [HttpPost]
-        public async Task<ActionResult<Order>> AddOrder([FromBody] Order order)
+        public async Task<ActionResult<OrderDTO>> AddOrder([FromBody] OrderDTO orderDto)
         {
             try
             {
-                var newOrder = await _service.AddOrderAsync(order);
+                var newOrder = await _service.AddOrderAsync(orderDto);
                 return Ok(newOrder);
             }
             catch (Exception ex)
@@ -47,15 +40,15 @@ namespace HomeWork1.Controllers
         }
 
         // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE api/<OrderController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

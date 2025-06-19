@@ -13,7 +13,7 @@
 
 //        Task<User> getUserByUserNameAndPasswordLogin(UserLogin userLogin);
 
-//        Task<User> UpdateUser(short id, User updatedUser);
+//        Task<User> UpdateUser(int id, User updatedUser);
 
 
 
@@ -34,7 +34,7 @@ namespace IceCreamStoreRepostery
 
         Task<User> getUserByUserNameAndPasswordLogin(UserLogin userLogin);
 
-        Task<User> UpdateUser(short id, User updatedUser);
+        Task<User> UpdateUser(int id, User updatedUser);
 
 
 

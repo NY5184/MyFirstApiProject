@@ -14,16 +14,16 @@ public partial class Order
 {
     [Key]
     [Column("ORDER_ID")]
-    public short OrderId { get; set; }
+    public int OrderId { get; set; }
 
     [Column("ORDER_DATE", TypeName = "smalldatetime")]
     public DateTime OrderDate { get; set; }
 
     [Column("ORDER_SUM")]
-    public short OrderSum { get; set; }
+    public int OrderSum { get; set; }
 
     [Column("USER_ID")]
-    public short? UserId { get; set; }
+    public int? UserId { get; set; }
 
     [InverseProperty("Order")]
     public virtual ICollection<TheOrderItem> TheOrderItems { get; set; } = new List<TheOrderItem>();
@@ -32,4 +32,5 @@ public partial class Order
     [InverseProperty("Orders")]
     
     public virtual User User { get; set; }
+
 }

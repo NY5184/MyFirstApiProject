@@ -1,9 +1,10 @@
 ﻿using Entity;
+using DTO;
 
 namespace IceCreamStoreService
 {
     public interface IIceCreamStoreServiceOrder
     {
-        Task<Order> AddOrderAsync(Order order);
+        Task<OrderDTO> AddOrderAsync(OrderDTO orderDto);
     }
 }

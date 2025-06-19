@@ -14,7 +14,7 @@ public partial class Category
 {
     [Key]
     [Column("ID")]
-    public short Id { get; set; }
+    public int Id { get; set; }
 
     [StringLength(50)]
     public string CategoryName { get; set; }

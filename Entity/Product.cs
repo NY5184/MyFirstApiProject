@@ -13,11 +13,11 @@ namespace Entity;
 public partial class Product
 {
     [Key]
-    [Column("ID")]
-    public short Id { get; set; }
+    [Column("Id")]
+    public int Id { get; set; }
 
-    [Column("Category_ID")]
-    public short CategoryId { get; set; }
+    [Column("CategoryId")]
+    public int CategoryId { get; set; }
 
     [StringLength(50)]
     public string ProductName { get; set; }
@@ -25,7 +25,7 @@ public partial class Product
     [StringLength(50)]
     public string ProductDescription { get; set; }
 
-    public short? Price { get; set; }
+    public int? Price { get; set; }
 
     [StringLength(50)]
     public string PathOfPicture { get; set; }

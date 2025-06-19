@@ -2,8 +2,23 @@ using IceCreamStoreRepostery;
 
 using IceCreamStoreService;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+// הוספת קונפיגורציית הלוגים של Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("C:\\computers\\WEBAPI\\logger-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog(); // שורה חשובה!
+
 
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -15,6 +30,15 @@ builder.Services.AddTransient<IIceCreamStoreReposteryCategory, IceCreamStoreRepo
 builder.Services.AddTransient<IIceCreamStoreServiceCategory, IceCreamStoreServiceCategory>();
 builder.Services.AddTransient<IIceCreamStoreReposteryProduct, IceCreamStoreReposteryProduct>();
 builder.Services.AddTransient<IIceCreamStoreServiceProduct, IceCreamStoreServiceProduct>();
+
+
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.ReflectionOnlyGetAssemblies()); 
+//builder.Services.AddAutoMapper(typeof(AutoMapping));
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddAutoMapper(typeof(IceCreamStoreService.AutoMapping));
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

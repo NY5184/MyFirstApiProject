@@ -1,6 +1,7 @@
-﻿using Entity;
+﻿
 using IceCreamStoreService;
 using Microsoft.AspNetCore.Mvc;
+using DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,7 +20,7 @@ namespace HomeWork1.Controllers
 
         // GET: api/<Category>
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetCategoriesAsync()
+        public async Task<ActionResult<List<CategoryDTO>>> GetCategoriesAsync()
         {
             try
             {
@@ -34,28 +35,6 @@ namespace HomeWork1.Controllers
         }
 
         // GET api/<Category>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<Category>
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<Category>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<Category>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      
     }
 }

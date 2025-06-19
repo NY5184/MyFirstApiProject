@@ -15,16 +15,16 @@ public partial class TheOrderItem
 {
     [Key]
     [Column("ORDER_ITEM_ID")]
-    public short OrderItemId { get; set; }
+    public int OrderItemId { get; set; }
 
     [Column("PRODUCT_ID")]
-    public short ProductId { get; set; }
+    public int ProductId { get; set; }
 
     [Column("ORDER_ID")]
-    public short OrderId { get; set; }
+    public int OrderId { get; set; }
 
     [Column("QUANTITY")]
-    public short Quantity { get; set; }
+    public int Quantity { get; set; }
 
     [ForeignKey("OrderId")]
     [InverseProperty("TheOrderItems")]

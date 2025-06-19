@@ -5,23 +5,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
+using AutoMapper;
 
 namespace IceCreamStoreService
 {
     public class IceCreamStoreServiceOrder : IIceCreamStoreServiceOrder
     {
         IIceCreamStoreReposteryOrder _repostery;
-        public IceCreamStoreServiceOrder(IIceCreamStoreReposteryOrder repostery)
+        private readonly IMapper _mapper;
+        public IceCreamStoreServiceOrder(IIceCreamStoreReposteryOrder repostery, IMapper mapper)
         {
             _repostery = repostery;
+            _mapper = mapper;
         }
-        public async Task<Order> AddOrderAsync(Order order)
+        public async Task<OrderDTO> AddOrderAsync(OrderDTO orderDto)
         {
-            if (order.OrderSum <= 0)
+            if (orderDto.OrderSum <= 0)
                 throw new ArgumentException("Order sum must be positive");
-
+            Order order = _mapper.Map<Order>(orderDto);
             order.OrderDate = DateTime.Now;
-            return await _repostery.AddOrderAsync(order);
+            var addedOrder= await _repostery.AddOrderAsync(order);
+            return _mapper.Map<OrderDTO>(addedOrder);
+
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Entity;
+using DTO;
 
 namespace IceCreamStoreService
 {
     public interface IIceCreamStoreServiceProduct
     {
-        Task<List<Product>> GetAllProductsAsync();
+        Task<List<ProductDTO>> GetAllProductsAsync();
     }
 }

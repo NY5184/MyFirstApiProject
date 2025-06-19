@@ -65,15 +65,15 @@
 
 //        //PUT api/<Users>
 //        [HttpPut("{id}")]
-//        public async Task<ActionResult<User>> UpdateUserAsync(short id, [FromBody] User updatedUser)
+//        public async Task<ActionResult<User>> UpdateUserAsync(int id, [FromBody] User updatedUser)
 //        {
 //            try
 //            {
-//                if (id > short.MaxValue || id < short.MinValue)
-//                    return BadRequest("Id is out of range for short.");
+//                if (id > int.MaxValue || id < int.MinValue)
+//                    return BadRequest("Id is out of range for int.");
 
-//                short shortId = (short)id;
-//                User user = await _service.UpdateUser(shortId, updatedUser);
+//                int intId = (int)id;
+//                User user = await _service.UpdateUser(intId, updatedUser);
 
 //                return Ok(user);
 //            }
@@ -100,7 +100,7 @@
 //    }
 //}
 
-using Entity;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using IceCreamStoreService;
@@ -121,25 +121,25 @@ namespace HomeWork1.Controllers
         }
         // GET: api/<Users>
         [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/<Users>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/<Users>
         [HttpPost("register")]
-        public async Task<ActionResult<User>> addUserRegisterAsync([FromBody] User newUser)
+        public async Task<ActionResult<UserDTO>> addUserRegisterAsync([FromBody] UserDTO newUserDto)
         {
             try
             {
-                User user = await _service.addUserRegister(newUser);
+                UserDTO user = await _service.addUserRegister(newUserDto);
                 return Ok(user);
             }
             catch (ArgumentException ex)
@@ -151,11 +151,11 @@ namespace HomeWork1.Controllers
 
         //POST api/<Users>
         [HttpPost("logIn")]
-        public async Task<ActionResult<User>> getUserByUserNameAndPasswordLogin([FromBody] UserLogin userLogin)
+        public async Task<ActionResult<UserDTO>> getUserByUserNameAndPasswordLogin([FromBody] UserLoginDTO userLoginDto)
         {
             try
             {
-                User user = await _service.getUserByUserNameAndPasswordLogin(userLogin);
+                UserDTO user = await _service.getUserByUserNameAndPasswordLogin(userLoginDto);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)
@@ -166,15 +166,15 @@ namespace HomeWork1.Controllers
 
         //PUT api/<Users>
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> UpdateUserAsync(short id, [FromBody] User updatedUser)
+        public async Task<ActionResult<UserDTO>> UpdateUserAsync(int id, [FromBody] UserDTO updatedUserDto)
         {
             try
             {
-                if (id > short.MaxValue || id < short.MinValue)
-                    return BadRequest("Id is out of range for short.");
+                if (id > int.MaxValue || id < int.MinValue)
+                    return BadRequest("Id is out of range for int.");
 
-                short shortId = (short)id;
-                User user = await _service.UpdateUser(shortId, updatedUser);
+                int intId = (int)id;
+                UserDTO user = await _service.UpdateUser(intId, updatedUserDto);
 
                 return Ok(user);
             }
@@ -194,9 +194,9 @@ namespace HomeWork1.Controllers
 
 
         // DELETE api/<Users>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

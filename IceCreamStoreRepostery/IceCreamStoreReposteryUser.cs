@@ -32,7 +32,7 @@ namespace IceCreamStoreRepostery
         }
 
 
-        public async Task<User> UpdateUser(short id, User updatedUser)
+        public async Task<User> UpdateUser(int id, User updatedUser)
         {
             var userToUpdate = await _WebApiContext.Users.FirstOrDefaultAsync(u => u.Id == id);
 
