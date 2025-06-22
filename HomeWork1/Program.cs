@@ -6,18 +6,12 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using NLog.Web;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-// הוספת קונפיגורציית הלוגים של Serilog
-Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Information()
-    .WriteTo.Console()
-    .WriteTo.File("C:\\computers\\WEBAPI\\logger-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
-builder.Host.UseSerilog(); // שורה חשובה!
+var logger = NLogBuilder.ConfigureNLog(".nlog.config").GetCurrentClassLogger();
+builder.Host.UseNLog();
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -45,7 +39,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<WebApiContext>(options => options.UseSqlServer
-("Data Source=LAPTOP-MOJ9OFNQ;Initial Catalog=WebApi;Integrated Security=True;TrustServerCertificate=True;Pooling=False"
+(builder.Configuration.GetConnectionString("HomeWork1Context")
 ));
 
 // Add services to the container.

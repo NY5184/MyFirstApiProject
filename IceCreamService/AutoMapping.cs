@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entity;
 using DTO;
+using Zxcvbn;
 
 namespace IceCreamStoreService
 {
@@ -26,14 +27,16 @@ namespace IceCreamStoreService
                 .ForMember(dest => dest.User, opt => opt.Ignore()); // עדיין נחוץ
 
             CreateMap<TheOrderItem, OrderItemDTO>().ReverseMap();
-                
+
             CreateMap<Product, ProductDTO>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName)).ReverseMap();
+                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName));
+            CreateMap<ProductDTO, Product>();
+                
 
 
         }
-      
-        
+
+
     }
 
     
