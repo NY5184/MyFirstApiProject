@@ -20,7 +20,7 @@ namespace TestIceCreamStore
             _productRepository = new IceCreamStoreReposteryProduct(_dbContext);
         }
         [Fact]
-        public async Task GetAllProductsAsync_testONIntegration()
+        public async Task GetAllProductsAsync_TestOnIntegration() // Change to PascalCase: TestOnIntegration
         {
             var category = new Category
             {
@@ -44,4 +44,5 @@ namespace TestIceCreamStore
         }
     }
 }
+// All names should be PascalCase
 

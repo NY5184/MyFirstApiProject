@@ -25,15 +25,11 @@ namespace TestIceCreamStore
             var mockMapper = new Mock<IMapper>();
 
             var userLoginDto = new UserLoginDTO("test", "1234");
-            // מכיוון ש-UserLoginDTO הוא record עם ctor של שני פרמטרים
 
             var userLogin = new UserLogin { userName = "test", password = "1234" };
-            // שימי לב ל-case של השדות (קטנות ב-UserLogin)
 
             var user = new User { Id = 1, UserName = "test", Password = "1234", FirstName = "Naama", LastName = "Yafen" };
-
             var userDto = new UserDTO { Id = 1, UserName = "test", Password = "1234", FirstName = "Naama", LastName = "Yafen" };
-
 
             mockMapper.Setup(m => m.Map<UserLogin>(userLoginDto)).Returns(userLogin);
             mockRepo.Setup(r => r.getUserByUserNameAndPasswordLogin(userLogin)).ReturnsAsync(user);
@@ -42,7 +38,7 @@ namespace TestIceCreamStore
             var service = new IceCreamStoreServiceUser(mockRepo.Object, mockMapper.Object, mockLogger.Object);
 
             // Act
-            var result = await service.getUserByUserNameAndPasswordLogin(userLoginDto);
+            var result = await service.getUserByUserNameAndPasswordLogin(userLoginDto); // Change to PascalCase: GetUserByUserNameAndPasswordLogin
 
             // Assert
             Assert.NotNull(result);

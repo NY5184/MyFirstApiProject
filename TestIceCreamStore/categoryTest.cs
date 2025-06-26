@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TestIceCreamStore
 {
-    public class categoryTest
+    public class CategoryTest
     {
         [Fact]
         public async Task GetCategoriesAsync_GetCategoriesAsyncSucssesfuly()
@@ -25,12 +25,7 @@ namespace TestIceCreamStore
             var repo = new IceCreamStoreReposteryCategory(mockContext.Object);
             var result = await repo.GetCategoriesAsync();
             Assert.NotNull(result);
-
             Assert.Equal("huiu", result[0].CategoryName);
-          
-
-
-
         }
     }
 }

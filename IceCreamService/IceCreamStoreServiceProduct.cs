@@ -23,7 +23,6 @@ namespace IceCreamStoreService
         public async Task<List<ProductDTO>> GetAllProductsAsync()
         {
             var products = await _repostery.GetAllProductsAsync();
-            Console.WriteLine("1111111111111");
             if (products == null || products.Count == 0)
                 return new List<ProductDTO>();
             return _mapper.Map<List<ProductDTO>>(products);

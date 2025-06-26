@@ -27,34 +27,25 @@ namespace IceCreamStoreService
 
 
 
-        public async Task<UserDTO> addUserRegister(UserDTO newUserDto)
+        public async Task<UserDTO> AddUserRegister(UserDTO newUserDto) // Change to PascalCase: AddUserRegister, //RETURN OBJECT
         {
             if (!validPassword(newUserDto.Password))
             {
-                throw new ArgumentException("you nead to enter a good password");
+                throw new ArgumentException("you need to enter a good password");
             }
             var newUser = _mapper.Map<User>(newUserDto);
-            var addedUser=await _repostery.addUserRegister(newUser);
-            Console.WriteLine("######");
-            Console.WriteLine(addedUser?.GetType().ToString() ?? "NULL!");
-            Console.WriteLine( "######");
-
+            var addedUser = await _repostery.addUserRegister(newUser);
             return _mapper.Map<UserDTO>(addedUser);
 
         }
-
-        public bool validPassword(string password)
+        public bool ValidPassword(string password) // Change to PascalCase: ValidPassword
         {
 
             var result = Zxcvbn.Core.EvaluatePassword(password);
             int score = result.Score;
-            if ((score) < 2)
-                return false;
-            return true;
-
+            return score >= 2;
         }
-
-        public async Task<UserDTO> getUserByUserNameAndPasswordLogin(UserLoginDTO userLoginDto)
+        public async Task<UserDTO> GetUserByUserNameAndPasswordLogin(UserLoginDTO userLoginDto) // Change to PascalCase: GetUserByUserNameAndPasswordLogin
         {
             _logger.LogInformation($"Login attempt for username: {userLoginDto.UserName}");
 

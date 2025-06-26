@@ -15,7 +15,7 @@ namespace IceCreamStoreRepostery
         {
             _WebApiContext = WebApiContext;
         }
-        public async Task<List<Product>> GetAllProductsAsync()
+        public async Task<List<Product>> GetAllProductsAsync()//(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             return await _WebApiContext.Products.Include(p=> p.Category).ToListAsync();
         }

@@ -11,11 +11,9 @@ namespace TestIceCreamStore
     public class DatabaseFixture : IDisposable
     {
         public WebApiContext Context { get; private set; }
-        //private readonly string _databaseName;
 
         public DatabaseFixture()
         {
-            //_databaseName = "TestDb_" + Guid.NewGuid().ToString("N");
             var options = new DbContextOptionsBuilder<WebApiContext>()
                 .UseSqlServer($"Server=LAPTOP-MOJ9OFNQ;Initial Catalog=Tests327742698;Integrated Security=True;TrustServerCertificate=True")
                 .Options;
