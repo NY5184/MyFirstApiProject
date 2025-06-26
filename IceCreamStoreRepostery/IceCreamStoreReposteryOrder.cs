@@ -19,10 +19,8 @@ namespace IceCreamStoreRepostery
 
         public async Task<Order> AddOrderAsync(Order order)
         {
-           
-        
-            _WebApiContext.Orders.Add(order); // Add זה סינכרוני
-            var addedOrder=await _WebApiContext.SaveChangesAsync(); // פה מחכים לסיום השמירה
+            _WebApiContext.Orders.Add(order); //change to AddAsync 
+            await _WebApiContext.SaveChangesAsync();// Save changes to the database 
             return order;
         }
 

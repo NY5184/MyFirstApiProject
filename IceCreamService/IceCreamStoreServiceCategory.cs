@@ -25,7 +25,8 @@ namespace IceCreamStoreService
             if (categorys == null || categorys.Count == 0)
                 return new List<CategoryDTO>();
             return _mapper.Map<List<CategoryDTO>>(categorys);
-
+            //you can do this too
+            //return _mapper.Map<List<CategoryDTO>>(await _repostery.GetCategoriesAsync() ?? new List<Category>());
         }
     }
 }
